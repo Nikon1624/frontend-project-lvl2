@@ -1,18 +1,7 @@
 import fs from 'fs';
 import path from 'path';
+import parseData from './parsers.js';
 import compareData from './compare-data.js';
-
-const DATA_TYPES = {
-  json: JSON.parse,
-};
-
-const parseData = (data, extension) => {
-  if (!Object.prototype.hasOwnProperty.call(DATA_TYPES, extension)) {
-    throw new Error('Unknown file extension');
-  }
-
-  return DATA_TYPES[extension](data);
-};
 
 const SYMBOLS = {
   both: ' ',

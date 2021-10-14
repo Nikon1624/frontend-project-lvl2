@@ -2,9 +2,9 @@ import genDiff from '../src/gendiff.js';
 
 const fileA = './__tests__/__fixtures__/file1.';
 const fileB = './__tests__/__fixtures__/file2.';
-const extensions = ['json'];
+const extensions = ['json', 'yml'];
 
-const jsonResult = `{
+const result = `{
   - follow : false
     host : hexlet.io
   - proxy : 123.234.53.22
@@ -14,5 +14,5 @@ const jsonResult = `{
 }`;
 
 test.each(extensions)('gendiff extension %s', (extension) => {
-  expect(genDiff(`${fileA}${extension}`, `${fileB}${extension}`)).toBe(jsonResult);
+  expect(genDiff(`${fileA}${extension}`, `${fileB}${extension}`)).toBe(result);
 });

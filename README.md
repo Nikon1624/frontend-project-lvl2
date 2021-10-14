@@ -6,3 +6,6 @@
 
 ### JSON
 [![asciicast](https://asciinema.org/a/YsFLXM1veLTGeXuNf2qc7tsex.svg)](https://asciinema.org/a/YsFLXM1veLTGeXuNf2qc7tsex)
+
+### YAML
+[![asciicast](https://asciinema.org/a/ikcPC7rvAJCwfsI5xT15ixvXp.svg)](https://asciinema.org/a/ikcPC7rvAJCwfsI5xT15ixvXp)
