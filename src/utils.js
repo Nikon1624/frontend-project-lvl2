@@ -1,11 +1,3 @@
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const getFixturePath = (fileName) => path.resolve(__dirname, `./__tests__/__fixtures__/${fileName}`);
-
 const uniqArray = (arr) => {
   const uniq = new Set(arr);
   return Array.from(uniq);
@@ -21,4 +13,4 @@ const sortObjectKeys = (objA, objB) => (
   })
 );
 
-export { getFixturePath, uniqArray, sortObjectKeys };
+export { uniqArray, sortObjectKeys };

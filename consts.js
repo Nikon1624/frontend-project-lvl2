@@ -1,0 +1,10 @@
+const KEY_TYPES = {
+  ROOT: 'ROOT',
+  ADDED: 'ADDED',
+  DELETED: 'DELETED',
+  CHANGED: 'CHANGED',
+  UNCHANGED: 'UNCHANGED',
+  NESTED: 'NESTED',
+};
+
+export default KEY_TYPES;

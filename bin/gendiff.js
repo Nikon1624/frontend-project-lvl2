@@ -7,9 +7,9 @@ program
   .version('1.0.0')
   .description('Compares two configuration files and shows a difference.')
   .arguments('<filepathA> <filepathB>')
-  .option('-f, --format <type>', 'output format')
+  .option('-f, --format <type>', 'output format', 'stylish')
   .action((filePathA, filePathB) => {
-    const result = genDiff(filePathA, filePathB);
+    const result = genDiff(filePathA, filePathB, program.opts().format);
     console.log(result);
   });
 

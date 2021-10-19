@@ -1,48 +1,41 @@
 import _ from 'lodash';
 import { uniqArray, sortObjectKeys } from './utils.js';
+import KEY_TYPES from '../consts.js';
 
-const KEY_LOCATIONS = {
-  a: 'a',
-  b: 'b',
-  both: 'both',
-};
-
-const createKeyResult = (key, value, location, withChildren) => ({
+const createKeyResult = (key, type, value, newValue = null) => ({
   key,
+  type,
   value,
-  location,
-  withChildren,
+  newValue,
 });
 
 const compareData = (dataA, dataB) => {
-  const result = [];
   const keys = sortObjectKeys(dataA, dataB);
   const uniqKeys = uniqArray(keys);
 
-  uniqKeys.forEach((key) => {
+  return uniqKeys.map((key) => {
     const dataAHasKey = Object.prototype.hasOwnProperty.call(dataA, key);
     const dataBHasKey = Object.prototype.hasOwnProperty.call(dataB, key);
 
-    if (!dataAHasKey || !dataBHasKey) {
-      if (dataAHasKey) {
-        result.push(createKeyResult(key, dataA[key], KEY_LOCATIONS.a, false));
-      }
-
-      if (dataBHasKey) {
-        result.push(createKeyResult(key, dataB[key], KEY_LOCATIONS.b, false));
-      }
-    } else if (_.isPlainObject(dataA[key]) && _.isPlainObject(dataB[key])) {
-      const childrenResult = compareData(dataA[key], dataB[key]);
-      result.push(createKeyResult(key, childrenResult, KEY_LOCATIONS.both, true));
-    } else if (dataA[key] === dataB[key]) {
-      result.push(createKeyResult(key, dataA[key], KEY_LOCATIONS.both, false));
-    } else {
-      result.push(createKeyResult(key, dataA[key], KEY_LOCATIONS.a, false));
-      result.push(createKeyResult(key, dataB[key], KEY_LOCATIONS.b, false));
+    if (!dataAHasKey) {
+      return createKeyResult(key, KEY_TYPES.ADDED, dataB[key]);
     }
-  });
 
-  return result;
+    if (!dataBHasKey) {
+      return createKeyResult(key, KEY_TYPES.DELETED, dataA[key]);
+    }
+
+    if (_.isPlainObject(dataA[key]) && _.isPlainObject(dataB[key])) {
+      const childrenResult = compareData(dataA[key], dataB[key]);
+      return createKeyResult(key, KEY_TYPES.NESTED, childrenResult);
+    }
+
+    if (dataA[key] === dataB[key]) {
+      return createKeyResult(key, KEY_TYPES.UNCHANGED, dataA[key]);
+    }
+
+    return createKeyResult(key, KEY_TYPES.CHANGED, dataA[key], dataB[key]);
+  });
 };
 
-export default compareData;
+export default (dataA, dataB) => (createKeyResult(null, KEY_TYPES.ROOT, compareData(dataA, dataB)));
