@@ -1,13 +1,9 @@
 import fs from 'fs';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
 import yaml from 'js-yaml';
+import { getFixturePath } from '../src/utils.js';
 import compareData from '../src/compare-data.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const getFile = (fileName) => fs.readFileSync(path.resolve(__dirname, `./__fixtures__/${fileName}`), 'utf8');
+const getFile = (fileName) => fs.readFileSync(getFixturePath(fileName), 'utf8');
 
 const results = [
   [

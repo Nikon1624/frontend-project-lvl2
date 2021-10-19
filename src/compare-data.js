@@ -1,52 +1,44 @@
+import _ from 'lodash';
+import { uniqArray, sortObjectKeys } from './utils.js';
+
+const KEY_LOCATIONS = {
+  a: 'a',
+  b: 'b',
+  both: 'both',
+};
+
+const createKeyResult = (key, value, location, withChildren) => ({
+  key,
+  value,
+  location,
+  withChildren,
+});
+
 const compareData = (dataA, dataB) => {
   const result = [];
-  const keys = [...Object.keys(dataA), ...Object.keys(dataB)].sort((a, b) => {
-    if (a > b) return 1;
-    if (a === b) return 0;
-    if (a < b) return -1;
+  const keys = sortObjectKeys(dataA, dataB);
+  const uniqKeys = uniqArray(keys);
 
-    return 0;
-  });
+  uniqKeys.forEach((key) => {
+    const dataAHasKey = Object.prototype.hasOwnProperty.call(dataA, key);
+    const dataBHasKey = Object.prototype.hasOwnProperty.call(dataB, key);
 
-  new Set(keys).forEach((key) => {
-    const AHasKey = Object.prototype.hasOwnProperty.call(dataA, key);
-    const BHasKey = Object.prototype.hasOwnProperty.call(dataB, key);
-    if (AHasKey && BHasKey) {
-      if (dataA[key] === dataB[key]) {
-        result.push({
-          key,
-          location: 'both',
-          value: dataA[key],
-        });
-      } else {
-        result.push({
-          key,
-          location: 'a',
-          value: dataA[key],
-        });
-
-        result.push({
-          key,
-          location: 'b',
-          value: dataB[key],
-        });
+    if (!dataAHasKey || !dataBHasKey) {
+      if (dataAHasKey) {
+        result.push(createKeyResult(key, dataA[key], KEY_LOCATIONS.a, false));
       }
+
+      if (dataBHasKey) {
+        result.push(createKeyResult(key, dataB[key], KEY_LOCATIONS.b, false));
+      }
+    } else if (_.isPlainObject(dataA[key]) && _.isPlainObject(dataB[key])) {
+      const childrenResult = compareData(dataA[key], dataB[key]);
+      result.push(createKeyResult(key, childrenResult, KEY_LOCATIONS.both, true));
+    } else if (dataA[key] === dataB[key]) {
+      result.push(createKeyResult(key, dataA[key], KEY_LOCATIONS.both, false));
     } else {
-      if (AHasKey) {
-        result.push({
-          key,
-          location: 'a',
-          value: dataA[key],
-        });
-      }
-
-      if (BHasKey) {
-        result.push({
-          key,
-          location: 'b',
-          value: dataB[key],
-        });
-      }
+      result.push(createKeyResult(key, dataA[key], KEY_LOCATIONS.a, false));
+      result.push(createKeyResult(key, dataB[key], KEY_LOCATIONS.b, false));
     }
   });
 
