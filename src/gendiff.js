@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import parseData from './parsers.js';
 import compareData from './compare-data.js';
-import formatters from './formatters/index.js';
+import getFormatter from './formatters/index.js';
 
 const getFileData = (file) => {
   const pathToFile = path.resolve(process.cwd(), file);
@@ -18,7 +18,7 @@ const genDiff = (fileA, fileB, format) => {
 
   const diffs = compareData(fileAData, fileBData);
 
-  return formatters[format](diffs);
+  return getFormatter(format)(diffs);
 };
 
 export default genDiff;

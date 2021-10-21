@@ -50,6 +50,7 @@ const stylish = (diffs) => {
       }
     }
   };
+
   return createResult(diffs, 0);
 };
 

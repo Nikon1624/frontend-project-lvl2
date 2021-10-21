@@ -4,11 +4,17 @@ import genDiff from '../src/gendiff.js';
 
 const getFixturePath = (fileName) => path.resolve(process.cwd(), `./__tests__/__fixtures__/${fileName}`);
 const getFile = (fileName) => fs.readFileSync(getFixturePath(fileName), 'utf8');
-const results = getFile('result.txt');
+const stylishResult = getFile('stylish-result.txt');
+const plainResult = getFile('plain-result.txt');
 
 const extensions = ['json', 'yml'];
 
 test.each(extensions)('gendiff extension %s', (extension) => {
-  const diffResult = genDiff(getFixturePath(`file1.${extension}`), getFixturePath(`file2.${extension}`), 'stylish');
-  expect(diffResult).toBe(results);
+  const pathA = getFixturePath(`file1.${extension}`);
+  const pathB = getFixturePath(`file2.${extension}`);
+  const diffStylishResult = genDiff(pathA, pathB, 'stylish');
+  const diffPlainResult = genDiff(pathA, pathB, 'plain');
+
+  expect(diffStylishResult).toBe(stylishResult);
+  expect(diffPlainResult).toBe(plainResult);
 });

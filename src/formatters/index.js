@@ -1,7 +1,17 @@
 import stylish from './stylish.js';
+import plain from './plain.js';
 
 const formatters = {
   stylish,
+  plain,
 };
 
-export default formatters;
+const getFormatter = (type) => {
+  if (!Object.prototype.hasOwnProperty.call(formatters, type)) {
+    throw new Error('Unknown formatter type');
+  }
+
+  return formatters[type];
+};
+
+export default getFormatter;
