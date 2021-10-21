@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { uniqArray, sortObjectKeys } from './utils.js';
 import KEY_TYPES from '../consts.js';
 
 const createKeyResult = (key, type, value, newValue = null) => ({
@@ -10,10 +9,10 @@ const createKeyResult = (key, type, value, newValue = null) => ({
 });
 
 const compareData = (dataA, dataB) => {
-  const keys = sortObjectKeys(dataA, dataB);
-  const uniqKeys = uniqArray(keys);
+  const keys = _.union(_.keys(dataA), _.keys(dataB));
+  const sortedKeys = _.sortBy(keys);
 
-  return uniqKeys.map((key) => {
+  return sortedKeys.map((key) => {
     const dataAHasKey = Object.prototype.hasOwnProperty.call(dataA, key);
     const dataBHasKey = Object.prototype.hasOwnProperty.call(dataB, key);
 
