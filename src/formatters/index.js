@@ -9,7 +9,7 @@ const formatters = {
 };
 
 const getFormatter = (type) => {
-  if (!Object.prototype.hasOwnProperty.call(formatters, type)) {
+  if (!formatters[type]) {
     throw new Error('Unknown formatter type');
   }
 
