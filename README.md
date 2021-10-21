@@ -11,4 +11,4 @@
 [![asciicast](https://asciinema.org/a/ikcPC7rvAJCwfsI5xT15ixvXp.svg)](https://asciinema.org/a/ikcPC7rvAJCwfsI5xT15ixvXp)
 
 ### Output formats
-[![asciicast](https://asciinema.org/a/GXjeCUK50nBGwjoFusV5YA7CI.svg)](https://asciinema.org/a/GXjeCUK50nBGwjoFusV5YA7CI)
+[![asciicast](https://asciinema.org/a/GFe194zsc0UHCJH4tJP56ppjc.svg)](https://asciinema.org/a/GFe194zsc0UHCJH4tJP56ppjc)
