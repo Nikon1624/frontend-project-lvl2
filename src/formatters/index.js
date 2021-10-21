@@ -10,7 +10,7 @@ const formatters = {
 
 const getFormatter = (type) => {
   if (!formatters[type]) {
-    throw new Error('Unknown formatter type');
+    throw new Error(`Unknown formatter type ${type}`);
   }
 
   return formatters[type];
