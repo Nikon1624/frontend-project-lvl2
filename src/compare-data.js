@@ -13,8 +13,8 @@ const compareData = (dataA, dataB) => {
   const sortedKeys = _.sortBy(keys);
 
   return sortedKeys.map((key) => {
-    const dataAHasKey = Object.prototype.hasOwnProperty.call(dataA, key);
-    const dataBHasKey = Object.prototype.hasOwnProperty.call(dataB, key);
+    const dataAHasKey = _.has(dataA, key);
+    const dataBHasKey = _.has(dataB, key);
 
     if (!dataAHasKey) {
       return createKeyResult(key, KEY_TYPES.ADDED, dataB[key]);

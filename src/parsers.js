@@ -3,11 +3,12 @@ import yaml from 'js-yaml';
 const DATA_TYPES = {
   json: JSON.parse,
   yml: yaml.load,
+  yaml: yaml.load,
 };
 
 const parseData = (data, extension) => {
-  if (!Object.prototype.hasOwnProperty.call(DATA_TYPES, extension)) {
-    throw new Error('Unknown file extension');
+  if (!DATA_TYPES[extension]) {
+    throw new Error(`Unknown file extension: ${extension}`);
   }
 
   return DATA_TYPES[extension](data);

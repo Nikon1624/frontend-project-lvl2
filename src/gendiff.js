@@ -12,9 +12,9 @@ const getFileData = (file) => {
   return parseData(fileContent, extension);
 };
 
-const genDiff = (fileA, fileB, format = 'stylish') => {
-  const fileAData = getFileData(fileA);
-  const fileBData = getFileData(fileB);
+const genDiff = (pathToFileA, pathToFileB, format = 'stylish') => {
+  const fileAData = getFileData(pathToFileA);
+  const fileBData = getFileData(pathToFileB);
 
   const diffs = compareData(fileAData, fileBData);
 

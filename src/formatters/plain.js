@@ -12,7 +12,7 @@ const stringify = (value) => {
     return `'${value}'`;
   }
 
-  return value;
+  return `${value}`;
 };
 
 const plain = (diffs) => {
