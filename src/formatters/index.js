@@ -4,7 +4,7 @@ import plain from './plain.js';
 const formatters = {
   stylish,
   plain,
-  json: (diffs) => JSON.stringify(diffs.value),
+  json: JSON.stringify,
 };
 
 const getFormatter = (type) => {
